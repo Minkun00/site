@@ -10,6 +10,7 @@ npm run start
 
 
 ## 내용
+- [ ] contract사용한 login
 - [x] firebase 연결
 - [x] 텍스트 저장 및 불러오기
 - [ ] 이미지 처리

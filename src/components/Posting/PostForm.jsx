@@ -1,5 +1,6 @@
 // PostForm.jsx
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useDropzone } from 'react-dropzone';
 import writePost from '../PostFunctions/WritePosts';
 import { uploadImage } from '../PostFunctions/UploadImage'; // 경로 수정 필요
@@ -10,6 +11,7 @@ function PostForm() {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [previewMode, setPreviewMode] = useState(false);
+  // const navigate = useNavigate();
 
   const handleTitleChange = (e) => {
     setTitle(e.target.value);

@@ -6,6 +6,7 @@ import WrittenPosts from './components/WrittenPosts/WrittenPosts';
 import FullPost from './components/FullPosts/FullPosts';
 import NavigationBar from './components/NavBar/NavigationBar';
 
+
 export default function App() {
   return (
     <>
