@@ -1,0 +1,45 @@
+/* PostForm.css */
+
+.form-container {
+    margin: 20px auto; /* Center horizontally with equal margins on top and bottom */
+    width: 90%;
+  }
+  
+  .form-label {
+    display: block;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+  
+  .textarea-preview {
+    transition: height 0.3s ease-in-out;
+    height: 1000px;
+    width: 100%; /* Adjusted to 100% to fill the width */
+    margin: 0 auto; /* Center horizontally */
+    font-size: 17px;
+  }
+  
+  .preview-container {
+    margin-top: 20px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    width: 90%;
+    height: 1000px;
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto; /* Center horizontally */
+  }
+  
+  .preview-title {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 10px;
+  }
+  
+  .titlearea {
+    height: 30px;
+    font-size: 20px;
+    width: 100%; /* Adjusted to 100% to fill the width */
+    margin: 0 auto; /* Center horizontally */
+  }
+  
