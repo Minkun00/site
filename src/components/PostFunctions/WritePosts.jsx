@@ -1,6 +1,5 @@
 import { db } from "../../firebase";
 import { collection, addDoc } from "firebase/firestore";
-
 /**
  * @param {string} title 
  * @param {string} content

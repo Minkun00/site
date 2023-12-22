@@ -1,7 +1,7 @@
 // WrittenPosts.jsx
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import getPosts from '../PostFunctions/getPosts';
+import getPosts from '../PostFunctions/GetPosts';
 import './WrittenPosts.css';
 
 export default function WrittenPosts() {

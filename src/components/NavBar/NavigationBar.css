@@ -1,0 +1,29 @@
+/* NavigationBar.css */
+
+nav {
+    background-color: #858080;
+    padding: 10px;
+  }
+  
+  ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+  }
+  
+  li {
+    margin-right: 10px;
+  }
+  
+  Link {
+    text-decoration: none;
+    color: rgb(55, 53, 151);
+    font-weight: bold;
+    font-size: 16px;
+  }
+  
+  Link:hover {
+    color: #ffcc00;
+  }
+  
