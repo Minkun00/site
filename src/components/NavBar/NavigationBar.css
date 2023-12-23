@@ -1,5 +1,3 @@
-/* NavigationBar.css */
-
 nav {
     background-color: #858080;
     padding: 10px;
@@ -26,4 +24,16 @@ nav {
   Link:hover {
     color: #ffcc00;
   }
-  
+  button {
+    background-color: #666666;  
+    color: #ffffff;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #555555; 
+}

@@ -3,7 +3,10 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import getPosts from '../PostFunctions/GetPosts';
 import './WrittenPosts.css';
-
+/**
+ * @description this is for Main Page.
+ * @returns {React.ReactNode}
+ */
 export default function WrittenPosts() {
   const [posts, setPosts] = useState([]);
 
