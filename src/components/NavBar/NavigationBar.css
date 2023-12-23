@@ -1,0 +1,39 @@
+nav {
+    background-color: #858080;
+    padding: 10px;
+  }
+  
+  ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+  }
+  
+  li {
+    margin-right: 10px;
+  }
+  
+  Link {
+    text-decoration: none;
+    color: rgb(55, 53, 151);
+    font-weight: bold;
+    font-size: 16px;
+  }
+  
+  Link:hover {
+    color: #ffcc00;
+  }
+  button {
+    background-color: #666666;  
+    color: #ffffff;
+    padding: 10px 20px;
+    font-size: 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #555555; 
+}

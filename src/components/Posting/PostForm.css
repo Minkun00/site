@@ -1,0 +1,94 @@
+/* PostForm.css */
+
+/* 공통 스타일 */
+.container {
+  width: 90%;
+  margin: 20px auto;
+  box-sizing: border-box;
+}
+
+/* 폼 관련 스타일 */
+.form-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.input-field {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+}
+
+.textarea-field {
+  width: 100%;
+  height: 200px;
+  padding: 10px;
+  font-size: 16px;
+}
+
+/* 미리보기 관련 스타일 */
+.preview-container {
+  margin-top: 20px;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  height: 1000px;
+  margin: 0 auto;
+  width: 90%;
+}
+
+.preview-title {
+  font-weight: bold;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.titlearea {
+  height: 30px;
+  font-size: 20px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.textarea-preview {
+  transition: height 0.3s ease-in-out;
+  height: 1000px;
+  width: 100%;
+  margin: 0 auto;
+  font-size: 17px;
+}
+
+/* 입력 필드에 힌트 스타일 추가 */
+.input-field::placeholder,
+.textarea-field::placeholder {
+  color: #999;
+}
+
+label {
+  display: block;
+  margin-bottom: 10px;
+  text-align: center; /* 가운데 정렬을 위해 추가 */
+}
+
+input[type="text"],
+textarea {
+  width: 90%;
+  padding: 10px;
+  margin: 0 auto; /* 화면 가운데 정렬을 위해 추가 */
+  margin-bottom: 10px;
+  font-size: 16px;
+}
+
+input[type="text"] {
+  height: 30px; /* title 입력 부분의 높이를 한 줄로 설정 */
+}
+
+textarea {
+  height: calc(100vh - 150px); /* content 입력 부분의 높이를 조절하고 스크롤이 가능하도록 설정 */
+}
