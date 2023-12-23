@@ -1,4 +1,5 @@
 ## TO START
+* `node version : 20.10.0`
 1. `.env` 환경변수 파일 생성
 값은 [firebase]('https://firebase.google.com/?hl=ko')에서 web으로 만들면 나오는 환경변수값 저장
 

@@ -1,7 +1,7 @@
 // FullPost.jsx
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import getPostById from '../PostFunctions/GetPostsById';
+import getPostById from '../../functions/PostFunctions/GetPostsById';
 import './FullPosts.css'; // Import the updated CSS file
 
 export default function FullPost() {

@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useSiteContext } from "../../context";
+import Caver from "caver-js";
 import './Login.css'
 
 export default function Login() {
@@ -10,19 +11,16 @@ export default function Login() {
     }, [globalState]);
 
     async function requestAccount() {
-        if (window.ethereum) {
-            try {
-                const accounts = await window.ethereum.request({
-                    method: "eth_requestAccounts",
-                });
+        if (window.klaytn) {
+            const caver = new Caver(window.klaytn);
+            const accounts = await caver.klay.getAccounts();
+            if (accounts.length > 0) {
                 updateGlobalState(accounts[0]);
-                alert(`${accounts[0]} connected!`);
-            } catch (error) {
-                alert("Error connecting to Metamask");
-                console.log(error);
+            } else {
+                alert('Please connect to Kaikas!')
             }
         } else {
-            alert("Metamask Not Detected!");
+            alert('Kaikas not Detected!');
         }
     }
 

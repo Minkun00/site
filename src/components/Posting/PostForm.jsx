@@ -2,8 +2,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDropzone } from 'react-dropzone';
-import writePost from '../PostFunctions/WritePosts';
-import { uploadImage } from '../PostFunctions/UploadImage'; // 경로 수정 필요
+import writePost from '../../functions/PostFunctions/WritePosts';
+import { uploadImage } from '../../functions/PostFunctions/UploadImage'; // 경로 수정 필요
 import ReactMarkdown from 'react-markdown';
 import gfm from 'remark-gfm';
 

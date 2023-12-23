@@ -1,7 +1,7 @@
 // WrittenPosts.jsx
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import getPosts from '../PostFunctions/GetPosts';
+import getPosts from '../../functions/PostFunctions/GetPosts';
 import './WrittenPosts.css';
 /**
  * @description this is for Main Page.
