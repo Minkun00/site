@@ -1,9 +1,14 @@
-// FullPost.jsx
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import getPostById from '../../functions/PostFunctions/GetPostsById';
-import './FullPosts.css'; // Import the updated CSS file
+import './FullPosts.css';
+import gfm from 'remark-gfm';
+import ReactMarkdown from 'react-markdown';
 
+/**
+ * @description id에 따라 post를 보여줌
+ * @returns {React.ReactNode} post된 제목, content 내용 보여줌
+ */
 export default function FullPost() {
   const { postId } = useParams();
   const [post, setPost] = useState(null);
@@ -26,9 +31,9 @@ export default function FullPost() {
   }
 
   return (
-    <div className="container">
-      <h1>{post.title}</h1>
-      <p>{post.content}</p>
+    <div className='container'>
+      <ReactMarkdown className='title' remarkPlugins={[gfm]} children={post.title}/>
+      <ReactMarkdown className='p' remarkPlugins={[gfm]} children={post.content}/>
     </div>
   );
 }

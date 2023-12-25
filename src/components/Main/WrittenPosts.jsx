@@ -1,10 +1,9 @@
-// WrittenPosts.jsx
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import getPosts from '../../functions/PostFunctions/GetPosts';
 import './WrittenPosts.css';
 /**
- * @description this is for Main Page.
+ * @description Main Page
  * @returns {React.ReactNode}
  */
 export default function WrittenPosts() {

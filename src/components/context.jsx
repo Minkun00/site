@@ -1,5 +1,5 @@
 import { createContext, useContext, useState } from 'react';
-
+// 전역변수 사용. 유저가 서명한 public address값 저장
 const SiteContext = createContext();
 
 const SiteProvider = ({ children }) => {

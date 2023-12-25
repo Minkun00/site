@@ -58,9 +58,8 @@ function PostForm() {
   };
 
   const handleTest = async () => {
-    const result = await contract.methods.isCertified().call();
-    console.log(`result : ${result}`);
-    setIsCertified(result);
+    const isCertifiedResult = await contract.methods.isCertified().call();
+    console.log(isCertifiedResult);
   }
 
   return (

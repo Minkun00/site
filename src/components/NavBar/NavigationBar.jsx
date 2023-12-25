@@ -7,7 +7,7 @@ import { useSiteContext } from '../context';
 export default function NavigationBar() {
   const { globalState } = useSiteContext();
   const isOwner = globalState === process.env.REACT_APP_OWNER_ADDRESS;
-  const isLoggedIn = globalState != 'initial value';
+  // const isLoggedIn = globalState != 'initial value';
 
   return (
     <nav>

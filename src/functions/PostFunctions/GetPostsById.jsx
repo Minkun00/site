@@ -1,6 +1,11 @@
 import { db } from "../../firebase";
 import {doc, getDoc} from 'firebase/firestore';
 
+/**
+ * 
+ * @param {string} postId  
+ * @returns {object} postId에 해당하는 post 호출
+ */
 const getPostById = async (postId) => {
     try {
         const postRef = doc(db, 'posts', postId);
