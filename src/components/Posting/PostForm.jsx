@@ -5,46 +5,46 @@ import gfm from 'remark-gfm';
 import './PostForm.css';
 import Caver from 'caver-js';
 import LoginJson from '../../contract/login.json';
+import ContentEditor from './ContentEditor';
+import { useSiteContext } from '../context';
 
 function PostForm() {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [previewMode, setPreviewMode] = useState(false);
   const [isCertified, setIsCertified] = useState(false);
-
-  const loginABI = LoginJson.abi;
-  const loginAddress = process.env.REACT_APP_CONTRACT_ADDRESS;
-  const caver = new Caver(window.klaytn); 
-  const contract = new caver.klay.Contract(loginABI, loginAddress);
-
+  const { globalState } = useSiteContext();   // userAddress
+  
 
   useEffect(() => {
     const checkCertification = async () => {
       try {
-        const certified = await contract.methods.isCertified().call();
+        const loginABI = LoginJson.abi;
+        const loginAddress = process.env.REACT_APP_CONTRACT_ADDRESS;
+        const caver = new Caver(window.klaytn); 
+        const contract = new caver.klay.Contract(loginABI, loginAddress);
+        const certified = await contract.methods.isCertified().call({from: window.klaytn.selectedAddress});
         setIsCertified(certified);
       } catch (error) {
-        alert('You are not certified.');
         setIsCertified(false);
       }
     }
     checkCertification();
-    console.log(`isCertified : ${isCertified}`);
   }, []);
 
   const handleTitleChange = (e) => {
     setTitle(e.target.value);
   };
 
-  const handleContentChange = (e) => {
-    setContent(e.target.value);
+  const handleContentChange = (newContent) => {
+    setContent(newContent)
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
     if (title.trim() !== '' && content.trim() !== '') {
-      writePost(title, content);
+      writePost(title, content, globalState);
       setTitle('');
       setContent('');
       setPreviewMode(false);
@@ -56,11 +56,6 @@ function PostForm() {
   const togglePreview = () => {
     setPreviewMode(!previewMode);
   };
-
-  const handleTest = async () => {
-    const isCertifiedResult = await contract.methods.isCertified().call();
-    console.log(isCertifiedResult);
-  }
 
   return (
     <div>
@@ -78,7 +73,7 @@ function PostForm() {
                 <ReactMarkdown className='preview-container' remarkPlugins={[gfm]} children={content} />
               </div>
             ) : (
-              <textarea value={content} onChange={handleContentChange} placeholder='content'/>
+              <ContentEditor onContentChange={handleContentChange} initialContent={content} title={title}/>
             )}
           </label>
         </div>
@@ -92,7 +87,6 @@ function PostForm() {
       ) : (
         <div>
           <p>You are not certified</p>
-          <button onClick={handleTest}>test</button>
         </div>
       )}
     </div>

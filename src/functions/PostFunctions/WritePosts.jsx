@@ -3,14 +3,16 @@ import { collection, addDoc } from "firebase/firestore";
 /**
  * @param {string} title 
  * @param {string} content
+ * @param {string} userAddress
  * @returns document writing to firebase database 
  */
-const writePost = async(title, content) => {
+const writePost = async(title, content, userAddress) => {
     try {
         const postsCollection = collection(db, 'posts');
         const newPostRef = await addDoc(postsCollection, {
             title: title,
             content: content,
+            userAddress: userAddress,
             timestamp: new Date(),
         });
         console.log('written to firebase, ID : ', newPostRef.id);
