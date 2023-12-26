@@ -1,89 +1,74 @@
-.container {
-  width: 90%;
-  margin: 20px auto;
-  box-sizing: border-box;
+/* PostForm.css */
+
+.content-editor {
+  width: 100%;
+  height: 1000px;
+  padding: 10px;
+  font-size: 16px;
+  margin-bottom: 10px;
 }
 
-.form-container {
+.image-input-box {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  background-color: rgba(200, 200, 200, 0.7);
+}
+/* PostForm.css */
+
+form {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.form-label {
-  display: block;
+.label-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   margin-bottom: 10px;
-  text-align: center;
-}
-
-.input-field {
-  width: 100%;
-  padding: 10px;
-  font-size: 16px;
-}
-
-.textarea-field {
-  width: 100%;
-  height: 200px;
-  padding: 10px;
-  font-size: 16px;
 }
 
 .preview-container {
   margin-top: 20px;
   box-sizing: border-box;
-  border: 1px solid #ccc;
-  height: 1000px;
-  margin: 0 auto;
-  width: 90%;
+  border: 1px solid #bbb;
+  height: 500px;
+  width: 100%;
   text-align: left;
+  background-color: rgba(200, 200, 200, 0.7);
+  overflow-y: auto; /* 스크롤이 필요한 경우 스크롤이 나타나도록 함 */
+  padding: 10px;
 }
 
-.preview-title {
-  font-weight: bold;
-  display: block;
-  margin-bottom: 10px;
-}
-
-.titlearea {
+.title {
   height: 30px;
   font-size: 20px;
   width: 100%;
-  margin: 0 auto;
-}
-
-.textarea-preview {
-  transition: height 0.3s ease-in-out;
-  height: 1000px;
-  width: 100%;
-  margin: 0 auto;
-  font-size: 17px;
-}
-
-.input-field::placeholder,
-.textarea-field::placeholder {
-  color: #999;
-}
-
-label {
-  display: block;
   margin-bottom: 10px;
-  text-align: center; 
 }
 
-input[type="text"],
-textarea {
-  width: 90%;
+.button-container {
+  margin-top: 10px;
+  display: flex;
+  gap: 10px;
+}
+
+button {
   padding: 10px;
-  margin: 0 auto; 
-  margin-bottom: 10px;
   font-size: 16px;
+  cursor: pointer;
 }
 
-input[type="text"] {
-  height: 30px; 
+/* 스크롤바 디자인 */
+.preview-container::-webkit-scrollbar {
+  width: 10px;
 }
 
-textarea {
-  height: calc(100vh - 150px); 
+.preview-container::-webkit-scrollbar-thumb {
+  background-color: #888;
+}
+
+.preview-container::-webkit-scrollbar-track {
+  background-color: #ddd;
 }

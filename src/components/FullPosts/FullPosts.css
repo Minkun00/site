@@ -6,7 +6,7 @@
     margin: 0 auto;
     padding: 20px;
     border: 1px solid #ccc;
-    background-color: #fff;
+    background-color: rgba(200, 200, 200, 0.7);
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   }
   

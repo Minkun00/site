@@ -7,6 +7,7 @@ import FullPost from './components/FullPosts/FullPosts';
 import NavigationBar from './components/NavBar/NavigationBar';
 import { SiteProvider } from './components/context';
 import Owner from './components/Owner/Owner';
+import WelcomePage from './components/Welcome/Welcome';
 
 export default function App() {
   return (
@@ -23,12 +24,15 @@ const Router = () => {
         <div>
           <NavigationBar/>
         </div>
-        <Routes>
-          <Route path="/posting" element={<PostForm/>}/> 
-          <Route path="/" element={<WrittenPosts/>}/>
-          <Route path="/posts/:postId" element={<FullPost/>}/>
-          <Route path="/owner" element={<Owner/>}/>
-        </Routes>
+        <div className='default'>
+          <Routes>
+            <Route path="/posting" element={<PostForm/>}/> 
+            <Route path="/site" element={<WrittenPosts/>}/>
+            <Route path="/posts/:postId" element={<FullPost/>}/>
+            <Route path="/owner" element={<Owner/>}/>
+            <Route path='/' element={<WelcomePage/>} />
+          </Routes>
+        </div>
       </SiteProvider>
     </BrowserRouter>
   );

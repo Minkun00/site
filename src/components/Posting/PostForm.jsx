@@ -62,11 +62,11 @@ function PostForm() {
       {isCertified ? (
       <form onSubmit={handleSubmit}>
         <div>
-          <label>
-            <input type="text" value={title} onChange={handleTitleChange} placeholder='title'/>
+          <label className='label-container'>
+            <input type="text" value={title} onChange={handleTitleChange} placeholder='title' className='title'/>
           </label>
         </div>
-        <div>
+        
           <label>
             {previewMode ? (
               <div>
@@ -76,7 +76,7 @@ function PostForm() {
               <ContentEditor onContentChange={handleContentChange} initialContent={content} title={title}/>
             )}
           </label>
-        </div>
+        
         <div>
           <button type="submit">Submit</button>
           <button type="button" onClick={togglePreview}>

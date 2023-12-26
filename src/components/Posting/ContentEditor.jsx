@@ -24,8 +24,8 @@ const ContentEditor = ({onContentChange, initialContent, title }) => {
 
     return (
         <div>
-            <textarea value={content} onChange={handleContentChange} placeholder='content' />
-            <input type='file' accept='image/*' onChange={handleImageUpload} />
+            <textarea className='content-editor' value={content} onChange={handleContentChange} placeholder='content' />
+            <input type='file' accept='image/*' onChange={handleImageUpload} className='image-input-box'/>
         </div>
     );
 };

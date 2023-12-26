@@ -30,7 +30,7 @@ export default function Login() {
     return (
         <div>
             {globalState === 'initial value'? (
-                <button onClick={requestAccount}>Request Account</button>
+                <button onClick={requestAccount}>LogIn</button>
             ) : (
                 <button onClick={logOut}>LogOut</button>
             )}
