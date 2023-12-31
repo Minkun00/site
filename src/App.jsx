@@ -24,14 +24,16 @@ const Router = () => {
         <div>
           <NavigationBar/>
         </div>
-        <div className='default'>
-          <Routes>
-            <Route path="/posting" element={<PostForm/>}/> 
-            <Route path="/site" element={<WrittenPosts/>}/>
-            <Route path="/posts/:postId" element={<FullPost/>}/>
-            <Route path="/owner" element={<Owner/>}/>
-            <Route path='/' element={<WelcomePage/>} />
-          </Routes>
+        <div className='background-image'>
+          <div className='default'>
+            <Routes>
+              <Route path="/posting" element={<PostForm/>}/> 
+              <Route path="/site" element={<WrittenPosts/>}/>
+              <Route path="/posts/:postId" element={<FullPost/>}/>
+              <Route path="/owner" element={<Owner/>}/>
+              <Route path='/' element={<WelcomePage/>} />
+            </Routes>
+          </div>
         </div>
       </SiteProvider>
     </BrowserRouter>

@@ -19,6 +19,12 @@ export default function Owner() {
    setUserAddressInput(event.target.value);
  };
 
+//  if (!window.klaytn || !window.klaytn.selectedAddress) {
+//   console.error('klaytn wallet not detected or address not selected!');
+//   console.log(isOwner);
+//   return;
+//  }
+
  const certifyUser = async () => {
    try {
     await contract.methods.certification(userAddressInput).send({

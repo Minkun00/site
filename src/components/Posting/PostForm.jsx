@@ -7,6 +7,8 @@ import Caver from 'caver-js';
 import LoginJson from '../../contract/login.json';
 import ContentEditor from './ContentEditor';
 import { useSiteContext } from '../context';
+import {ref, uploadBytes, getDownloadURL} from 'firebase/storage';
+import { storage } from '../../firebase';
 
 function PostForm() {
   const [title, setTitle] = useState('');
@@ -14,6 +16,7 @@ function PostForm() {
   const [previewMode, setPreviewMode] = useState(false);
   const [isCertified, setIsCertified] = useState(false);
   const { globalState } = useSiteContext();   // userAddress
+  const [thumbnailUrl, setThumbnailUrl] = useState('');
   
 
   useEffect(() => {
@@ -43,13 +46,15 @@ function PostForm() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (title.trim() !== '' && content.trim() !== '') {
-      writePost(title, content, globalState);
+    if (title.trim() !== '' && content.trim() !== '' && thumbnailUrl !== '') {
+      writePost(title, content, globalState, thumbnailUrl);
+
       setTitle('');
       setContent('');
       setPreviewMode(false);
+
     } else {
-      alert('Empty post is not allowed!');
+      alert('title, content, thumbnail are missing');
     }
   };
 
@@ -57,8 +62,16 @@ function PostForm() {
     setPreviewMode(!previewMode);
   };
 
+  const handleThumbnailUpload= async (e) => {
+    const file = e.target.files[0];
+    const storageRef = ref(storage, `${globalState}/` + file.name);
+    await uploadBytes(storageRef, file);
+    const imageUrl = await getDownloadURL(storageRef);
+    setThumbnailUrl(imageUrl);
+  }
+
   return (
-    <div>
+    <div className='post-form'>
       {isCertified ? (
       <form onSubmit={handleSubmit}>
         <div>
@@ -76,7 +89,20 @@ function PostForm() {
               <ContentEditor onContentChange={handleContentChange} initialContent={content} title={title}/>
             )}
           </label>
-        
+
+          <div>
+          <label htmlFor="thumbnailInput" className="image-upload-label">
+            Thumbnail image
+            <div>
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleThumbnailUpload}
+                id="thumbnailInput"
+              />
+            </div>
+          </label>
+        </div>
         <div>
           <button type="submit">Submit</button>
           <button type="button" onClick={togglePreview}>
@@ -86,7 +112,7 @@ function PostForm() {
       </form>
       ) : (
         <div>
-          <p>You are not certified</p>
+          <p className='warn'>You are not certified</p>
         </div>
       )}
     </div>

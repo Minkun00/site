@@ -37,12 +37,14 @@
   }
 }
 
-.default {
+.background-image {
   background-image: url('./Images/seaside.jpg');
-  background-size: cover; /* 배경 이미지를 컨테이너에 맞게 확대/축소 */
-  background-position: center; /* 배경 이미지를 가운데 정렬 */
-  min-height: 100vh; /* 최소 화면 높이를 100vh로 설정하여 화면 전체를 차지하도록 함 */
-  display: flex;
+  background-size: cover;
+  background-position: center;
+  min-height: 100vh;
+}
+
+.default {
   flex-direction: column;
   align-items: center;
   justify-content: center;

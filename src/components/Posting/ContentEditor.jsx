@@ -2,9 +2,11 @@ import React, {useState} from 'react';
 import {ref, uploadBytes, getDownloadURL} from 'firebase/storage';
 import {storage} from '../../firebase';
 import './PostForm.css';
+import { useSiteContext } from '../context'; 
 
-const ContentEditor = ({onContentChange, initialContent, title }) => {
+const ContentEditor = ({onContentChange, initialContent }) => {
     const [content, setContent] = useState(initialContent ||'');
+    const { globalState } = useSiteContext();
 
     const handleContentChange = (e) => {
         const newContent = e.target?.value || '';
@@ -12,10 +14,10 @@ const ContentEditor = ({onContentChange, initialContent, title }) => {
         onContentChange(newContent);
     };
 
-    // image는 title이 정해져야 삽입가능하게 설정
+    // firestorage - userAddress/file_name에 저장
     const handleImageUpload = async(e) => {
         const file = e.target.files[0];
-        const storageRef = ref(storage, `${title}/` + file.name);
+        const storageRef = ref(storage, `${globalState}/` + file.name);
         await uploadBytes(storageRef, file);
         const imageUrl = await getDownloadURL(storageRef);
 
@@ -25,7 +27,12 @@ const ContentEditor = ({onContentChange, initialContent, title }) => {
     return (
         <div>
             <textarea className='content-editor' value={content} onChange={handleContentChange} placeholder='content' />
-            <input type='file' accept='image/*' onChange={handleImageUpload} className='image-input-box'/>
+            <label htmlFor="thumbnailInput" className="image-upload-label">
+                Content Image
+                <div>
+                    <input type='file' accept='image/*' onChange={handleImageUpload} />
+                </div>
+            </label>
         </div>
     );
 };
