@@ -1,13 +1,9 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useSiteContext } from "../../context";
 import './Login.css'
 
 export default function Login() {
     const { globalState, updateGlobalState } = useSiteContext();
-    
-    useEffect(() => {
-        console.log(`address : ${globalState}`);
-    }, [globalState]);
 
     async function requestAccount() {
         if (window.klaytn) {

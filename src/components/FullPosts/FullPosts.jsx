@@ -36,17 +36,18 @@ export default function FullPost() {
   }
 
   const handleDelte = async () => {
-    console.log(post)
+    console.log(isWritter)
   }
 
   return (
     <div>
-      {!isWritter && (
-        <div>
+      
+      <div className='container'>
+      {isWritter && (
+        <div className='post-delete'>
           <button onClick={handleDelte}>Delete</button>
         </div>
       )}
-      <div className='container'>
         <ReactMarkdown className='title' remarkPlugins={[gfm]} children={post.title}/>
         <ReactMarkdown className='p' remarkPlugins={[gfm]} children={post.content}/>
       </div>
