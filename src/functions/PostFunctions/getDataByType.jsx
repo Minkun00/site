@@ -12,11 +12,16 @@ const getDataByType = async (postId, typeFieldName) => {
         const postDocSnap = await getDoc(postDocRef);
 
         if (postDocSnap.exists()) {
-            const thumbnailUrl = postDocSnap.data()[typeFieldName];
-            return thumbnailUrl;
+            const returnData = postDocSnap.data()[typeFieldName];
+            return returnData;
         } else {
-            console.log('Post does not exist');
-            return null;
+            if (typeFieldName === 'thumbnailUrl') {
+                // default no-image..
+                return process.env.REACT_APP_DEFAULT_THUMBNAIL;
+            } else {
+                console.log('Post does not exist');
+                return null;
+            }
         }
     } catch (e) {
         console.error('Error getting thumbnail URL: ', e);

@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import getPostById from '../../functions/PostFunctions/GetPostsById';
 import './FullPosts.css';
 import gfm from 'remark-gfm';
 import ReactMarkdown from 'react-markdown';
 import { useSiteContext } from '../context';
+import deletePost from '../../functions/PostFunctions/DeletePost';
 
 /**
  * @description id에 따라 post를 보여줌
@@ -15,6 +16,7 @@ export default function FullPost() {
   const [ post, setPost ] = useState(null);
   const { globalState } = useSiteContext();
   const [ isWritter, setIsWritter ] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -35,17 +37,26 @@ export default function FullPost() {
     return <div>Loading...</div>;
   }
 
-  const handleDelte = async () => {
-    console.log(isWritter)
+  const handleDelete = async () => {
+    const confirmation = window.confirm('Do you really want to delete this post?');
+
+    if (confirmation) {
+      await deletePost(postId);
+      navigate('/');
+    }
+  };
+
+  const handleModify = async () => {
+    alert('Not ready..')
   }
 
   return (
     <div>
-      
       <div className='container'>
       {isWritter && (
         <div className='post-delete'>
-          <button onClick={handleDelte}>Delete</button>
+          <button onClick={handleDelete}>Delete</button>
+          <button onClick={handleModify}>Modify</button>
         </div>
       )}
         <ReactMarkdown className='title' remarkPlugins={[gfm]} children={post.title}/>

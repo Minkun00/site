@@ -21,7 +21,7 @@ npm run start
 - [x] 텍스트 저장 및 불러오기
 - [x] 이미지 처리
 - [x] ThumbNail
-- [ ] 삭제
+- [x] 삭제 >> thumbnail 삭제 최종 확인 필요
+- [ ] 수정 >> `Posting/PostForm.jsx`로 바로 넘어갈 수 있도록 처리. `content` 값 넘어가게 처리
+- [ ] 최종 확인 >> 최종 오류 확인
 - [ ] github page 배포
-
-![Eligae](https://firebasestorage.googleapis.com/v0/b/blog-28d17.appspot.com/o/images%2F3F3F_3F_3F3F.png?alt=media&token=eb8eb26c-7400-4092-bfc7-46a404776dac)

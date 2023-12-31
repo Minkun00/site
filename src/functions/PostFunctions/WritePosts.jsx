@@ -6,7 +6,7 @@ import { collection, addDoc } from "firebase/firestore";
  * @param {string} userAddress
  * @returns document writing to firebase database 
  */
-const writePost = async(title, content, userAddress, thumbnailUrl) => {
+const writePost = async(title, content, userAddress, thumbnailUrl, thumbnailFileName) => {
     try {
         const postsCollection = collection(db, 'posts');
         const newPostRef = await addDoc(postsCollection, {
@@ -14,7 +14,8 @@ const writePost = async(title, content, userAddress, thumbnailUrl) => {
             content: content,
             userAddress: userAddress,
             timestamp: new Date(),
-            thumbnailUrl: thumbnailUrl
+            thumbnailUrl: thumbnailUrl,
+            thumbnailFileName: thumbnailFileName
         });
         console.log('written to firebase, ID : ', newPostRef.id);
         alert('Post is uploaded!')

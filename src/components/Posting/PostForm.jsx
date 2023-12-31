@@ -17,6 +17,7 @@ function PostForm() {
   const [isCertified, setIsCertified] = useState(false);
   const { globalState } = useSiteContext();   // userAddress
   const [thumbnailUrl, setThumbnailUrl] = useState('');
+  const [thumbnailFileName, setThumbnailFileName] = useState('');
   
 
   useEffect(() => {
@@ -47,7 +48,7 @@ function PostForm() {
     e.preventDefault();
 
     if (title.trim() !== '' && content.trim() !== '' && thumbnailUrl !== '') {
-      writePost(title, content, globalState, thumbnailUrl);
+      writePost(title, content, globalState, thumbnailUrl, thumbnailFileName);
 
       setTitle('');
       setContent('');
@@ -68,6 +69,7 @@ function PostForm() {
     await uploadBytes(storageRef, file);
     const imageUrl = await getDownloadURL(storageRef);
     setThumbnailUrl(imageUrl);
+    setThumbnailFileName(file.name);
   }
 
   return (
