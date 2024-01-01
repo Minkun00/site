@@ -5,12 +5,11 @@ import { collection, addDoc } from 'firebase/firestore';
  * @param {string} userAddress 입력할 user의 address
  * @param {boolean} isCertified 
  */
-const writeUser = async(userAddress, isCertified) => {
+const writeUser = async(userAddress) => {
     try {
         const usersCollections = collection(db, 'users');
-        const newUserRef = await addDoc(usersCollections, {
+        await addDoc(usersCollections, {
             userAddress: userAddress,
-            isCertified: isCertified,
             writtenPosts: 0,
             timestamp: new Date()
         });

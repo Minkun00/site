@@ -3,7 +3,7 @@ import LoginJson from '../../contract/login.json';
 import { useSiteContext } from '../context';
 import Caver from 'caver-js';
 import './Owner.css';
-import { db } from '../../firebase';
+import writeUser from '../../functions/UserFunctions/WriteUser';
 
 export default function Owner() {
   const loginABI = LoginJson.abi;
@@ -27,7 +27,9 @@ export default function Owner() {
       from:window.klaytn.selectedAddress,
       gas: '2000000',
     })
+    
     alert(`Certified ${userAddressInput}!`);
+    await writeUser(userAddressInput);
    } catch (error) {
      console.log('Certification error!', error);
    }
