@@ -5,25 +5,23 @@ import { ref, deleteObject } from 'firebase/storage';
 
 /**
  * @description post의 Id에 따라 firebase에서 삭제함. thumbnail도 삭제.
- * @param {string} postId - 삭제할 문서의 Id
+ * @param {string} postId 삭제할 문서의 Id
+ * @param {string} userAddress 삭제할 유저의 address값
  */
-const deletePost = async (postId) => {
+const deletePost = async (postId, userAddress) => {
     try {
-        const thumbnailUrl = await getDataByType(postId, 'thumbnailUrl');
-
-        if (thumbnailUrl !== process.env.REACT_APP_DEFAULT_THUMBNAIL) {
-            const url = new URL(thumbnailUrl);
-            const path = decodeURIComponent(url.pathname);
-            const storageRef = ref(storage, path);
-
-            await deleteObject(storageRef);
-        }
+        // Get the thumbnail file name
+        const thumbnailFileName = await getDataByType(postId, 'thumbnailFileName');
+        
+        const storageRef = ref(storage, `${userAddress}/${thumbnailFileName}.png`);
+        await deleteObject(storageRef);
 
         const postRef = doc(db, 'posts', postId);
         await deleteDoc(postRef);
-        alert('Post deleted')
+        console.log('post deleted: ', postId);
     } catch (e) {
         console.error('Error deleting post: ', e);
+        window.alert('Error deleting post!');
     }
 }
 

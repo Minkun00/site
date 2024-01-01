@@ -3,6 +3,7 @@ import LoginJson from '../../contract/login.json';
 import { useSiteContext } from '../context';
 import Caver from 'caver-js';
 import './Owner.css';
+import { db } from '../../firebase';
 
 export default function Owner() {
   const loginABI = LoginJson.abi;
@@ -19,11 +20,6 @@ export default function Owner() {
    setUserAddressInput(event.target.value);
  };
 
-//  if (!window.klaytn || !window.klaytn.selectedAddress) {
-//   console.error('klaytn wallet not detected or address not selected!');
-//   console.log(isOwner);
-//   return;
-//  }
 
  const certifyUser = async () => {
    try {
@@ -31,7 +27,7 @@ export default function Owner() {
       from:window.klaytn.selectedAddress,
       gas: '2000000',
     })
-    alert(`Certified ${userAddressInput}!`)
+    alert(`Certified ${userAddressInput}!`);
    } catch (error) {
      console.log('Certification error!', error);
    }
@@ -43,7 +39,7 @@ export default function Owner() {
       from:window.klaytn.selectedAddress,
       gas: '2000000',
     })
-    alert(`Banned ${userAddressInput}!`)
+    alert(`Banned ${userAddressInput}!`);
   } catch (error) {
     console.log('ban error!', error);
   }

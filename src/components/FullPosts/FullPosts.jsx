@@ -41,8 +41,8 @@ export default function FullPost() {
     const confirmation = window.confirm('Do you really want to delete this post?');
 
     if (confirmation) {
-      await deletePost(postId);
-      navigate('/');
+      await deletePost(postId, globalState);
+      navigate('/site');
     }
   };
 

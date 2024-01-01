@@ -4,7 +4,7 @@ import { doc, getDoc } from "firebase/firestore";
 /**
  * @param {string} postId 
  * @param {string} type in Firebase document
- * @returns {string} thumbnailUrl
+ * @returns `posts`에 해당하는 종류에 따른 data
  */
 const getDataByType = async (postId, typeFieldName) => {
     try {
@@ -24,7 +24,7 @@ const getDataByType = async (postId, typeFieldName) => {
             }
         }
     } catch (e) {
-        console.error('Error getting thumbnail URL: ', e);
+        console.error(`Error getting ${typeFieldName}: ${e}`);
         return null;
     }
 };
