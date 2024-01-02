@@ -2,13 +2,16 @@ import React, { useEffect, useState } from 'react';
 import writePost from '../../functions/PostFunctions/WritePosts';
 import ReactMarkdown from 'react-markdown';
 import gfm from 'remark-gfm';
-import './PostForm.css';
 import Caver from 'caver-js';
 import LoginJson from '../../contract/login.json';
 import ContentEditor from './ContentEditor';
 import { useSiteContext } from '../context';
-import {ref, uploadBytes, getDownloadURL} from 'firebase/storage';
+import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { storage } from '../../firebase';
+import getUserDataByType from '../../functions/UserFunctions/GetUserDataByType';
+import { useNavigate } from 'react-router-dom';
+import modifyWrittenPosts from '../../functions/UserFunctions/ModifyWrittenPosts';
+import './PostForm.css';
 
 function PostForm() {
   const [title, setTitle] = useState('');
@@ -18,7 +21,9 @@ function PostForm() {
   const { globalState } = useSiteContext();   // userAddress
   const [thumbnailUrl, setThumbnailUrl] = useState('');
   const [thumbnailFileName, setThumbnailFileName] = useState('');
-  
+  const [contentNum, setContentNum] = useState();
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const checkCertification = async () => {
@@ -36,6 +41,7 @@ function PostForm() {
     checkCertification();
   }, []);
 
+
   const handleTitleChange = (e) => {
     setTitle(e.target.value);
   };
@@ -44,28 +50,29 @@ function PostForm() {
     setContent(newContent)
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (title.trim() !== '' && content.trim() !== '' && thumbnailUrl !== '') {
-      writePost(title, content, globalState, thumbnailUrl, thumbnailFileName);
+      writePost(title, content, globalState, thumbnailUrl, thumbnailFileName, contentNum);
+      await modifyWrittenPosts(globalState);
 
-      setTitle('');
-      setContent('');
-      setPreviewMode(false);
-
+      navigate('/site');
     } else {
       alert('title, content, thumbnail are missing');
     }
   };
 
-  const togglePreview = () => {
+  const togglePreview = async () => {
     setPreviewMode(!previewMode);
   };
 
   const handleThumbnailUpload= async (e) => {
+    const _contentNum = await getUserDataByType(globalState, 'writtenPosts');
+    setContentNum(_contentNum);
+
     const file = e.target.files[0];
-    const storageRef = ref(storage, `${globalState}/` + file.name);
+    const storageRef = ref(storage, `${globalState}/${_contentNum}/thumbnail/${file.name}`);
     await uploadBytes(storageRef, file);
     const imageUrl = await getDownloadURL(storageRef);
     setThumbnailUrl(imageUrl);

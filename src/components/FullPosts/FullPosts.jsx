@@ -6,6 +6,7 @@ import gfm from 'remark-gfm';
 import ReactMarkdown from 'react-markdown';
 import { useSiteContext } from '../context';
 import deletePost from '../../functions/PostFunctions/DeletePost';
+import getUserDataByType from '../../functions/UserFunctions/GetUserDataByType';
 
 /**
  * @description id에 따라 post를 보여줌
@@ -41,7 +42,7 @@ export default function FullPost() {
     const confirmation = window.confirm('Do you really want to delete this post?');
 
     if (confirmation) {
-      await deletePost(postId, globalState);
+      await deletePost(postId, globalState, post.contentNum);
       navigate('/site');
     }
   };

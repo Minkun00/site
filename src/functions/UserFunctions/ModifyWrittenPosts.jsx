@@ -4,8 +4,9 @@ import { collection, query, where, getDocs, doc, updateDoc } from 'firebase/fire
 /**
  * @description 주어진 userAddress의 writtenPosts 값 + 1
  * @param {string} userAddress 증가시킬 user의 address
+ * @param {Number} num -1 or +1
  */
-const incrementWrittenPosts = async (userAddress) => {
+const modifyWrittenPosts = async (userAddress, num) => {
     try {
         const usersCollection = collection(db, 'users');
         
@@ -19,7 +20,7 @@ const incrementWrittenPosts = async (userAddress) => {
             const currentWrittenPosts = userDocSnapshot.data().writtenPosts;
             
             await updateDoc(userDocRef, {
-                writtenPosts: currentWrittenPosts + 1
+                writtenPosts: currentWrittenPosts + num
             });
             
         } else {
@@ -30,4 +31,4 @@ const incrementWrittenPosts = async (userAddress) => {
     }
 };
 
-export default incrementWrittenPosts;
+export default modifyWrittenPosts;

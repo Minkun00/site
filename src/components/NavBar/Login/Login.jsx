@@ -11,6 +11,7 @@ export default function Login() {
             console.log(accounts);
             if (accounts.length > 0) {
                 updateGlobalState(accounts[0]);
+                console.log(accounts[0]);
             } else {
                 alert('Please connect to Kaikas!')
             }

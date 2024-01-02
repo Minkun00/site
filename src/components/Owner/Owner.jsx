@@ -3,7 +3,7 @@ import LoginJson from '../../contract/login.json';
 import { useSiteContext } from '../context';
 import Caver from 'caver-js';
 import './Owner.css';
-import writeUser from '../../functions/UserFunctions/WriteUser';
+import { writeUser, deleteUser } from '../../functions/UserFunctions/ModifyUser';
 
 export default function Owner() {
   const loginABI = LoginJson.abi;
@@ -17,8 +17,9 @@ export default function Owner() {
  const [userAddressInput, setUserAddressInput] = useState('');
 
  const handleInputChange = (event) => {
-   setUserAddressInput(event.target.value);
- };
+  setUserAddressInput(event.target.value.toLowerCase());
+};
+
 
 
  const certifyUser = async () => {
@@ -42,6 +43,7 @@ export default function Owner() {
       gas: '2000000',
     })
     alert(`Banned ${userAddressInput}!`);
+    await deleteUser(userAddressInput);
   } catch (error) {
     console.log('ban error!', error);
   }

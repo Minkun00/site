@@ -25,3 +25,34 @@ npm run start
 - [ ] 수정 >> `Posting/PostForm.jsx`로 바로 넘어갈 수 있도록 처리. `content` 값 넘어가게 처리
 - [ ] 최종 확인 >> 최종 오류 확인
 - [ ] github page 배포
+
+* `globalState`로 `window.selectedAddress`를 관리하면서 
+
+## User
+|Key|Value|
+|----|----|
+|userAddress|`string - window.klaytn.selectedAddress`|
+|writtenPosts|`Int`|
+|timestamp|`Date()`|
+
+## Post
+|Key|Value|
+|----|----|
+|title|`string - markdown`|
+|content|`string - markdown`|
+|userAddress|`string - window.klaytn.selectedAddress`|
+|timestamp|`Date()`|
+|thumbnailUrl|`string - Url`|
+|thumbnailFileName|`string - FileName`|
+|contentNum|`Int`|
+
+### Image in posts
+1. content image
+```js
+const storageRef = ref(storage, `${globalState}/${contentNum}/${file.name}`);
+```
+
+2. thumbnail image
+```js
+ const storageRef = ref(storage, `${globalState}/${_contentNum}/thumbnail/${file.name}`);
+```

@@ -1,19 +1,17 @@
 import { db, storage } from "../../firebase";
 import { doc, deleteDoc } from 'firebase/firestore';
-import getDataByType from "./getDataByType";
 import { ref, deleteObject } from 'firebase/storage';
+import checkPath from "../TestFunctions/metadata";
 
 /**
  * @description post의 Id에 따라 firebase에서 삭제함. thumbnail도 삭제.
  * @param {string} postId 삭제할 문서의 Id
  * @param {string} userAddress 삭제할 유저의 address값
  */
-const deletePost = async (postId, userAddress) => {
+const deletePost = async (postId, userAddress, contentNum) => {
     try {
-        // Get the thumbnail file name
-        const thumbnailFileName = await getDataByType(postId, 'thumbnailFileName');
-        
-        const storageRef = ref(storage, `${userAddress}/${thumbnailFileName}.png`);
+        await checkPath(userAddress, contentNum);
+        const storageRef = ref(storage, `${userAddress}/${contentNum}`);
         await deleteObject(storageRef);
 
         const postRef = doc(db, 'posts', postId);

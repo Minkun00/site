@@ -3,6 +3,7 @@ import {ref, uploadBytes, getDownloadURL} from 'firebase/storage';
 import {storage} from '../../firebase';
 import './PostForm.css';
 import { useSiteContext } from '../context'; 
+import getUserDataByType from '../../functions/UserFunctions/GetUserDataByType';
 
 const ContentEditor = ({onContentChange, initialContent }) => {
     const [content, setContent] = useState(initialContent ||'');
@@ -16,8 +17,10 @@ const ContentEditor = ({onContentChange, initialContent }) => {
 
     // firestorage - userAddress/file_name에 저장
     const handleImageUpload = async(e) => {
+        const contentNum = await getUserDataByType(globalState, 'writtenPosts');
+        
         const file = e.target.files[0];
-        const storageRef = ref(storage, `${globalState}/` + file.name);
+        const storageRef = ref(storage, `${globalState}/${contentNum}/` + file.name);
         await uploadBytes(storageRef, file);
         const imageUrl = await getDownloadURL(storageRef);
 
