@@ -21,7 +21,6 @@ const getUserDataByType = async (userAddress, typeFieldName) => {
         const userData = querySnapshot.docs[0].data();
         const typeFieldValue = userData[typeFieldName];
 
-        console.log(`${typeFieldName} for ${userAddress}: ${typeFieldValue}`);
         return typeFieldValue;
     } catch (e) {
         console.error(`Error getting ${typeFieldName} : ${e}`);

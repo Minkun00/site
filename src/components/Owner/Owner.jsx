@@ -4,6 +4,7 @@ import { useSiteContext } from '../context';
 import Caver from 'caver-js';
 import './Owner.css';
 import { writeUser, deleteUser } from '../../functions/UserFunctions/ModifyUser';
+import { modifyWrittenPosts } from '../../functions/UserFunctions/ModifyUser'
 
 export default function Owner() {
   const loginABI = LoginJson.abi;
@@ -28,8 +29,6 @@ export default function Owner() {
       from:window.klaytn.selectedAddress,
       gas: '2000000',
     })
-    
-    alert(`Certified ${userAddressInput}!`);
     await writeUser(userAddressInput);
    } catch (error) {
      console.log('Certification error!', error);
@@ -42,11 +41,14 @@ export default function Owner() {
       from:window.klaytn.selectedAddress,
       gas: '2000000',
     })
-    alert(`Banned ${userAddressInput}!`);
     await deleteUser(userAddressInput);
   } catch (error) {
     console.log('ban error!', error);
   }
+ }
+
+ const test = async () => {
+  await modifyWrittenPosts(globalState, 1);
  }
 
  return (
@@ -63,6 +65,7 @@ export default function Owner() {
           </div>
           <button onClick={certifyUser}>Certify User</button>
           <button onClick={banUser}>Ban User</button>
+          <button onClick={test}>Test Button</button>
         </div>
       ) : (
         <div>

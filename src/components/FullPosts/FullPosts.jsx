@@ -6,7 +6,8 @@ import gfm from 'remark-gfm';
 import ReactMarkdown from 'react-markdown';
 import { useSiteContext } from '../context';
 import deletePost from '../../functions/PostFunctions/DeletePost';
-import getUserDataByType from '../../functions/UserFunctions/GetUserDataByType';
+import { ref, getDownloadURL } from 'firebase/storage';
+import { storage } from '../../firebase';
 
 /**
  * @description id에 따라 post를 보여줌
@@ -14,27 +15,49 @@ import getUserDataByType from '../../functions/UserFunctions/GetUserDataByType';
  */
 export default function FullPost() {
   const { postId } = useParams();
-  const [ post, setPost ] = useState(null);
+  const [post, setPost] = useState(null);
   const { globalState } = useSiteContext();
-  const [ isWritter, setIsWritter ] = useState(false);
+  const [isWritter, setIsWritter] = useState(false);
+  const [contentPath, setContentPath] = useState(null);
+  const [markdownContent, setMarkdownContent] = useState(null);
+
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const post = await getPostById(postId);
-        setPost(post);
-        setIsWritter(post.userAddress === globalState);
+        const _post = await getPostById(postId);
+        setPost(_post);
+        setIsWritter(_post.userAddress === globalState);
+        setContentPath(`${_post.userAddress}/${_post.contentNum}/${_post.title}.md`);
       } catch (e) {
         console.error('Error fetching post: ', e);
       }
     };
 
     fetchData();
-    
-  }, [postId, globalState]);
 
-  if (!post) {
+    // Firebase Storage에서 마크다운 파일을 가져와서 React 컴포넌트에 표시
+    const fetchMarkdownContent = async () => {
+      try {
+        console.log(contentPath);
+        const storageRef = ref(storage, contentPath);
+        const downloadURL = await getDownloadURL(storageRef);
+        const response = await fetch(downloadURL);
+        const content = await response.text();
+        setMarkdownContent(content);
+      } catch (e) {
+        console.error('Error fetching markdown content: ', e);
+      }
+    };
+
+    if (contentPath) {
+      fetchMarkdownContent();
+    }
+
+  }, [postId, globalState, contentPath]);
+
+  if (!post || !markdownContent) {
     return <div>Loading...</div>;
   }
 
@@ -42,7 +65,7 @@ export default function FullPost() {
     const confirmation = window.confirm('Do you really want to delete this post?');
 
     if (confirmation) {
-      await deletePost(postId, globalState, post.contentNum);
+      await deletePost(post, globalState, post.contentNum);
       navigate('/site');
     }
   };
@@ -54,14 +77,16 @@ export default function FullPost() {
   return (
     <div>
       <div className='container'>
-      {isWritter && (
-        <div className='post-delete'>
-          <button onClick={handleDelete}>Delete</button>
-          <button onClick={handleModify}>Modify</button>
+        {isWritter && (
+          <div className='post-delete'>
+            <button onClick={handleDelete}>Delete</button>
+            <button onClick={handleModify}>Modify</button>
+          </div>
+        )}
+        <div>
+          <p>{post.timestamp}</p>
+          <ReactMarkdown remarkPlugins={[gfm]} children={markdownContent} />
         </div>
-      )}
-        <ReactMarkdown className='title' remarkPlugins={[gfm]} children={post.title}/>
-        <ReactMarkdown className='p' remarkPlugins={[gfm]} children={post.content}/>
       </div>
     </div>
   );

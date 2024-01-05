@@ -1,8 +1,8 @@
 import { db } from "../../firebase";
-import {doc, getDoc} from 'firebase/firestore';
+import { doc, getDoc } from 'firebase/firestore';
 
 /**
- * 
+ * @description postId에 대한 데이터 반환
  * @param {string} postId  
  * @returns {object} postId에 해당하는 post 호출
  */

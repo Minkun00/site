@@ -1,16 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import writePost from '../../functions/PostFunctions/WritePosts';
 import ReactMarkdown from 'react-markdown';
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import gfm from 'remark-gfm';
 import Caver from 'caver-js';
 import LoginJson from '../../contract/login.json';
 import ContentEditor from './ContentEditor';
 import { useSiteContext } from '../context';
-import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+import { ref, uploadBytes, getDownloadURL, uploadString } from 'firebase/storage';
 import { storage } from '../../firebase';
 import getUserDataByType from '../../functions/UserFunctions/GetUserDataByType';
 import { useNavigate } from 'react-router-dom';
-import modifyWrittenPosts from '../../functions/UserFunctions/ModifyWrittenPosts';
+import { modifyWrittenPosts } from '../../functions/UserFunctions/ModifyUser';
 import './PostForm.css';
 
 function PostForm() {
@@ -22,6 +24,7 @@ function PostForm() {
   const [thumbnailUrl, setThumbnailUrl] = useState('');
   const [thumbnailFileName, setThumbnailFileName] = useState('');
   const [contentNum, setContentNum] = useState();
+  const [contentImageList, setContentImageList] = useState([]);
 
   const navigate = useNavigate();
 
@@ -42,6 +45,7 @@ function PostForm() {
   }, []);
 
 
+
   const handleTitleChange = (e) => {
     setTitle(e.target.value);
   };
@@ -54,9 +58,15 @@ function PostForm() {
     e.preventDefault();
 
     if (title.trim() !== '' && content.trim() !== '' && thumbnailUrl !== '') {
-      writePost(title, content, globalState, thumbnailUrl, thumbnailFileName, contentNum);
-      await modifyWrittenPosts(globalState);
-
+      writePost(title,  
+        globalState, 
+        thumbnailUrl, 
+        thumbnailFileName, 
+        contentNum, 
+        contentImageList);
+      
+      await modifyWrittenPosts(globalState, 1);
+      await uploadMarkdownFile(content, title);
       navigate('/site');
     } else {
       alert('title, content, thumbnail are missing');
@@ -79,6 +89,11 @@ function PostForm() {
     setThumbnailFileName(file.name);
   }
 
+  async function uploadMarkdownFile(markdownContent, title) {
+    const storageRef = ref(storage, `${globalState}/${contentNum}/${title}.md`);
+    await uploadString(storageRef, markdownContent, 'raw');
+  }
+
   return (
     <div className='post-form'>
       {isCertified ? (
@@ -92,10 +107,36 @@ function PostForm() {
           <label>
             {previewMode ? (
               <div>
-                <ReactMarkdown className='preview-container' remarkPlugins={[gfm]} children={content} />
+                <ReactMarkdown
+                  className='preview-container'
+                  remarkPlugins={[gfm]}
+                  components={{
+                    code: ({ node, inline, className, children, ...props }) => {
+                      const match = /language-(\w+)/.exec(className || '');
+                      return !inline && match ? (
+                        <SyntaxHighlighter
+                          style={atomDark}
+                          language={match[1]}
+                          PreTag="div"
+                          children={String(children).replace(/<br>/g, '\n')}
+                          {...props}
+                        />
+                      ) : (
+                        <code className={className} {...props}>
+                          {children}
+                        </code>
+                      );
+                    },
+                  }}
+                  children={content}
+                />
               </div>
             ) : (
-              <ContentEditor onContentChange={handleContentChange} initialContent={content} title={title}/>
+              <ContentEditor 
+                onContentChange={handleContentChange} 
+                initialContent={content} 
+                contentImageNum={contentImageList}
+                onContentImageNumChange={setContentImageList}/>
             )}
           </label>
 

@@ -22,11 +22,11 @@ npm run start
 - [x] 이미지 처리
 - [x] ThumbNail
 - [x] 삭제 >> thumbnail 삭제 최종 확인 필요
-- [ ] 수정 >> `Posting/PostForm.jsx`로 바로 넘어갈 수 있도록 처리. `content` 값 넘어가게 처리
+- [ ] 수정 >> `Posting/PostForm.jsx`로 바로 넘어갈 수 있도록 처리. `content` 값 넘어가게 처리 -> 귀찮다... 유기함
 - [ ] 최종 확인 >> 최종 오류 확인
 - [ ] github page 배포
 
-* `globalState`로 `window.selectedAddress`를 관리하면서 
+* `globalState`로 `window.klaytn.selectedAddress`를 관리함.
 
 ## User
 |Key|Value|
@@ -45,6 +45,9 @@ npm run start
 |thumbnailUrl|`string - Url`|
 |thumbnailFileName|`string - FileName`|
 |contentNum|`Int`|
+|contentImages|`list`|
+
+* `Firestorage`는 Directory를 삭제하는 방법이 없는듯. 따로 content에 들어가는 이미지들을 list형식으로 path를 저장해 하나씩 삭제하는 것으로 관리함. 
 
 ### Image in posts
 1. content image

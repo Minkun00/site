@@ -14,7 +14,7 @@ contract login {
         require(msg.sender == owner);
         _;
     }
-
+    // ---------------------[ Owner ]-----------------------------//
     // owner can make certification to write blogs
     function certification(address _address) public onlyOwner returns (bool) {
         require(certified[_address] == false, "Already certified");
@@ -25,18 +25,19 @@ contract login {
         return true;
     }
 
-    // for user, if you are certified
-    function isCertified() public view returns (bool) {
-        return certified[msg.sender];
-    }
-
-
-    // for user, if you are banned
+    // owner can ban user. Banned user can`t write posts.
     function banUser(address _address) public onlyOwner {
         ban[_address] = true;
         certified[_address] = false;
     }
 
+    // ---------------------[ User ]-----------------------------//
+    // for user, if you are certified
+    function isCertified() public view returns (bool) {
+        return certified[msg.sender];
+    }
+
+    // for user, if you are banned
     function isBanned() public view returns (bool) {
         return ban[msg.sender];
     }
