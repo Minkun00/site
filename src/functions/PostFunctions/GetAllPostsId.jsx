@@ -2,6 +2,7 @@ import { db } from "../../firebase";
 import { collection, getDocs } from "firebase/firestore";
 
 /**
+ * @description `posts`들의 모든 id들을 가져옴
  * @returns {Array} Array of post IDs
  */
 const getAllPostIds = async () => {

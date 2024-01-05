@@ -8,7 +8,6 @@ import { collection, addDoc } from "firebase/firestore";
  * @param {string} thumbnailFileName
  * @param {Number} contentNum
  * @param {list} contentImages
- * @returns document writing to firebase database 
  */
 const writePost = async(title, userAddress, thumbnailUrl, thumbnailFileName, contentNum, contentImages) => {
     try {
