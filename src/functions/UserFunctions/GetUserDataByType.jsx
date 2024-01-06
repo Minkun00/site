@@ -2,7 +2,7 @@ import { collection, query, where, getDocs } from "firebase/firestore";
 import { db } from "../../firebase";
 
 /**
- * 
+ * @description userAddress에 대한 요청한 data 제공
  * @param {string} userAddress
  * @param {string} typeFieldName 
  * @returns {any} `users`에 해당하는 종류에 따른 data

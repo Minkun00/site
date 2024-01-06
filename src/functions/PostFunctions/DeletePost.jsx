@@ -4,13 +4,13 @@ import { ref, deleteObject } from 'firebase/storage';
 import { modifyWrittenPosts } from "../UserFunctions/ModifyUser";
 
 /**
- * @description post의 Id에 따라 firebase에서 삭제함. thumbnail도 삭제.
+ * @description post의 Id에 따라 firebase에서 삭제함. 관련 image 모두 삭제
  * @param {Object} post id에 따른 post data object
  * @param {string} userAddress 삭제할 유저의 address값
  */
-const deletePost = async (post, userAddress, contentNum) => {
+const deletePost = async (post, userAddress) => {
     try {
-        const { id : postId, contentImages, thumbnailFileName } = post;
+        const { id : postId, contentImages, thumbnailFileName, contentNum } = post;
 
         await Promise.all(contentImages.map(async (path) => {
             const imageRef = ref(storage, path);
