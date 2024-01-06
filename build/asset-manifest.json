@@ -1,0 +1,17 @@
+{
+  "files": {
+    "main.css": "/site/static/css/main.f192ecf6.css",
+    "main.js": "/site/static/js/main.f5914e82.js",
+    "static/js/787.f587e8d5.chunk.js": "/site/static/js/787.f587e8d5.chunk.js",
+    "static/media/seaside.jpg": "/site/static/media/seaside.8d1cee6821c9635bb706.jpg",
+    "static/media/discord.png": "/site/static/media/discord.b1f762ef2042b0461423.png",
+    "index.html": "/site/index.html",
+    "main.f192ecf6.css.map": "/site/static/css/main.f192ecf6.css.map",
+    "main.f5914e82.js.map": "/site/static/js/main.f5914e82.js.map",
+    "787.f587e8d5.chunk.js.map": "/site/static/js/787.f587e8d5.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.f192ecf6.css",
+    "static/js/main.f5914e82.js"
+  ]
+}
