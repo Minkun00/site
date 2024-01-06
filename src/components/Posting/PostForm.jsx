@@ -8,11 +8,12 @@ import Caver from 'caver-js';
 import LoginJson from '../../contract/login.json';
 import ContentEditor from './ContentEditor';
 import { useSiteContext } from '../context';
-import { ref, uploadBytes, getDownloadURL, uploadString } from 'firebase/storage';
+import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { storage } from '../../firebase';
 import getUserDataByType from '../../functions/UserFunctions/GetUserDataByType';
 import { useNavigate } from 'react-router-dom';
 import { modifyWrittenPosts } from '../../functions/UserFunctions/ModifyUser';
+import rehypeRaw from 'rehype-raw';
 import './PostForm.css';
 
 function PostForm() {
@@ -58,7 +59,10 @@ function PostForm() {
     e.preventDefault();
 
     if (title.trim() !== '' && content.trim() !== '' && thumbnailUrl !== '') {
-      writePost(title,  
+      const convertedContent = convertNewLineToBr();
+
+      writePost(title,
+        convertedContent,
         globalState, 
         thumbnailUrl, 
         thumbnailFileName, 
@@ -66,7 +70,6 @@ function PostForm() {
         contentImageList);
       
       await modifyWrittenPosts(globalState, 1);
-      await uploadMarkdownFile(content, title);
       navigate('/site');
     } else {
       alert('title, content, thumbnail are missing');
@@ -89,10 +92,9 @@ function PostForm() {
     setThumbnailFileName(file.name);
   }
 
-  async function uploadMarkdownFile(markdownContent, title) {
-    const storageRef = ref(storage, `${globalState}/${contentNum}/${title}.md`);
-    await uploadString(storageRef, markdownContent, 'raw');
-  }
+  const convertNewLineToBr = () => {
+    return content.replace(/\n/g, '<br>');
+  };
 
   return (
     <div className='post-form'>
@@ -110,6 +112,7 @@ function PostForm() {
                 <ReactMarkdown
                   className='preview-container'
                   remarkPlugins={[gfm]}
+                  rehypePlugins={[rehypeRaw]}
                   components={{
                     code: ({ node, inline, className, children, ...props }) => {
                       const match = /language-(\w+)/.exec(className || '');

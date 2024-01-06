@@ -15,6 +15,7 @@ const getAllPostIds = async () => {
         });
         return postIds;
     } catch (e) {
+        alert(e);
         console.error('Error in getAllPostIds : ', e);
         return [];
     }
