@@ -18,6 +18,10 @@ export default function FullPost() {
 
   const navigate = useNavigate();
 
+  const convertBrToNewLine = (content) => {
+    return content.replace(/<br>/g, '\n');
+  };
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -37,10 +41,6 @@ export default function FullPost() {
   if (!post) {
     return <div>Loading...</div>;
   }
-
-  const convertBrToNewLine = (content) => {
-    return content.replace(/<br>/g, '\n');
-  };
 
   const handleDelete = async () => {
     const confirmation = window.confirm('Do you really want to delete this post?');
